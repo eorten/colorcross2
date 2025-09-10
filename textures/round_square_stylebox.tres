@@ -1,0 +1,7 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bm0q64db8qhsg"]
+
+[ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="1_lmdmj"]
+
+[resource]
+texture = ExtResource("1_lmdmj")
+modulate_color = Color(0.921569, 0.921569, 0.921569, 1)

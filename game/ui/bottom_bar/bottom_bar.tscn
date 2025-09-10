@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://chhleviqh4x0o"]
+
+[ext_resource type="Script" uid="uid://balix03mft0di" path="res://game/ui/bottom_bar/bottom_bar.gd" id="1_3y7bo"]
+[ext_resource type="Texture2D" uid="uid://b188lnrclu4n" path="res://textures/CrossIconWhite.png" id="2_fgsxe"]
+[ext_resource type="Texture2D" uid="uid://loikd48l5f4l" path="res://textures/CrossIcon.png" id="2_ub77k"]
+[ext_resource type="Texture2D" uid="uid://mk88l37bqjiq" path="res://textures/EyeIcon.png" id="3_fgsxe"]
+
+[node name="BottomBar" type="MarginContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 64
+script = ExtResource("1_3y7bo")
+
+[node name="HBar" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="MainMenuButton" type="TextureButton" parent="HBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("2_fgsxe")
+texture_pressed = ExtResource("2_ub77k")
+texture_hover = ExtResource("2_ub77k")
+texture_disabled = ExtResource("2_ub77k")
+stretch_mode = 5
+
+[node name="HintButton" type="TextureButton" parent="HBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture_normal = ExtResource("3_fgsxe")
+stretch_mode = 5

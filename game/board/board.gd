@@ -1,0 +1,40 @@
+class_name Board extends RefCounted
+
+var _palette:Palette
+var _board_size:int
+var _board:Dictionary[Vector2i, Cell]
+var _row_lasers:Array[Laser]
+var _col_lasers:Array[Laser]
+func _init(board_size:int, palette:Palette) -> void:
+	_palette = palette
+	_board_size = board_size
+	_board = {} as Dictionary[Vector2i, Cell]
+	for y in board_size:
+		_row_lasers.append(Laser.new(_palette, -1))
+		_col_lasers.append(Laser.new(_palette, -1))
+		for x in board_size:
+			_board[Vector2i(x,y)] = Cell.new()
+
+func scramble_lasers():
+	for laser:Laser in _row_lasers:
+		laser.set_color_idx(randi_range(0, _palette.get_size()-1))
+	
+	for laser:Laser in _col_lasers:
+		laser.set_color_idx(randi_range(0, _palette.get_size()-1))
+
+	_update_cells()
+
+func _update_cells():
+	for pos in _board.keys():
+		var row_laser = _row_lasers[pos.y] as Laser
+		var col_laser = _col_lasers[pos.x] as Laser
+		_board[pos].update_color(row_laser.get_intcolor(), col_laser.get_intcolor())
+
+func get_board_size() -> int:
+	return _board_size
+func get_board() -> Dictionary[Vector2i, Cell]:
+	return _board
+func get_row_lasers() -> Array[Laser]:
+	return _row_lasers
+func get_col_lasers() -> Array[Laser]:
+	return _col_lasers

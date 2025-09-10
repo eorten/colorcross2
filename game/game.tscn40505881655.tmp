@@ -1,0 +1,408 @@
+[gd_scene load_steps=17 format=3 uid="uid://cq28pudaet80k"]
+
+[ext_resource type="Script" uid="uid://cu64ibfhlshv" path="res://game/game.gd" id="1_dakft"]
+[ext_resource type="Theme" uid="uid://b0no6bs3sf7sg" path="res://theme/default.tres" id="1_l1rk1"]
+[ext_resource type="Script" uid="uid://dmngvyhmuwaow" path="res://game/ui/ui.gd" id="2_u5opy"]
+[ext_resource type="StyleBox" uid="uid://bm0q64db8qhsg" path="res://textures/round_square_stylebox.tres" id="2_vasa2"]
+[ext_resource type="PackedScene" uid="uid://chhleviqh4x0o" path="res://game/ui/bottom_bar/bottom_bar.tscn" id="3_dakft"]
+[ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="5_u5opy"]
+[ext_resource type="Script" uid="uid://bp8m5ppg4uoov" path="res://game/ui/main_menu_screen/main_menu_screen.gd" id="5_y36n6"]
+[ext_resource type="Script" uid="uid://dmpy2ex3jq60p" path="res://game/ui/play_menu_screen/play_menu_screen.gd" id="6_y36n6"]
+[ext_resource type="Script" uid="uid://c2dgrefg4dkjo" path="res://game/ui/play_screen/play_screen.gd" id="7_l8g03"]
+[ext_resource type="PackedScene" uid="uid://b2t0e11sakd7j" path="res://game/ui/play_screen/cell_node.tscn" id="8_j8tme"]
+[ext_resource type="PackedScene" uid="uid://bj4u62uage76d" path="res://game/ui/play_screen/laser_node.tscn" id="9_3vho3"]
+[ext_resource type="StyleBox" uid="uid://q8fny5hx0uhl" path="res://textures/styleboxes/rounded_panel.tres" id="10_qf6n1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1rk1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vasa2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h7iqs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mq7fr"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_dakft")
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("bottom_bar", "main_menu_screen", "play_menu_screen", "play_screen")]
+unique_name_in_owner = true
+script = ExtResource("2_u5opy")
+bottom_bar = NodePath("BottomBar")
+main_menu_screen = NodePath("MainMenuScren")
+play_menu_screen = NodePath("PlayMenuScreen")
+play_screen = NodePath("PlayScreen")
+
+[node name="BG" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[node name="MainMenuScren" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_l1rk1")
+script = ExtResource("5_y36n6")
+
+[node name="Title" type="CenterContainer" parent="UI/MainMenuScren"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 270.0
+grow_horizontal = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/MainMenuScren/Title"]
+layout_mode = 2
+theme_override_constants/line_separation = -32
+theme_override_font_sizes/normal_font_size = 124
+bbcode_enabled = true
+text = "[color=#E84343]C[/color][color=#E87D43]o[/color][color=#E8E343]l[/color][color=#64E843]o[/color][color=#43E8B9]r[/color]
+Cross"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="UI/MainMenuScren"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 361.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
+text = "Play"
+
+[node name="TutorialButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
+text = "Tutorial"
+
+[node name="ScoreboardButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
+text = "Scoreboard"
+
+[node name="SettingsButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
+text = "Settings"
+
+[node name="CreditsButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
+text = "Credits"
+
+[node name="ExitButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
+text = "Exit"
+
+[node name="PlayMenuScreen" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_l1rk1")
+script = ExtResource("6_y36n6")
+
+[node name="Title" type="CenterContainer" parent="UI/PlayMenuScreen"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 689.0
+grow_horizontal = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/PlayMenuScreen/Title"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_constants/line_separation = -32
+theme_override_font_sizes/normal_font_size = 96
+bbcode_enabled = true
+text = "Select board size"
+fit_content = true
+horizontal_alignment = 1
+
+[node name="Buttons" type="GridContainer" parent="UI/PlayMenuScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -202.0
+offset_right = 202.0
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="3x3Button" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+unique_name_in_owner = true
+self_modulate = Color(0.756863, 0.176471, 0.176471, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_vasa2")
+text = "3x3"
+
+[node name="5x5Button2" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+self_modulate = Color(0.756863, 0.176471, 0.698039, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_vasa2")
+text = "5x5"
+
+[node name="7x7Button3" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+self_modulate = Color(0.552941, 0.756863, 0.176471, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_vasa2")
+text = "7x7
+"
+
+[node name="9x9Button4" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+self_modulate = Color(0.176471, 0.670588, 0.756863, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_vasa2")
+text = "9x9
+"
+
+[node name="PlayScreen" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_l1rk1")
+script = ExtResource("7_l8g03")
+cell_prefab = ExtResource("8_j8tme")
+laser_prefab = ExtResource("9_3vho3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -189.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Spacer2" type="Control" parent="UI/PlayScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="InformationPanel" type="MarginContainer" parent="UI/PlayScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_right = 128
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayScreen/VBoxContainer/InformationPanel"]
+layout_mode = 2
+
+[node name="BoardSizeLabel" type="Label" parent="UI/PlayScreen/VBoxContainer/InformationPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 96
+text = "BoardSize"
+
+[node name="MoveCounterLabel" type="Label" parent="UI/PlayScreen/VBoxContainer/InformationPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "MoveCounter"
+
+[node name="HintCounterLabel" type="Label" parent="UI/PlayScreen/VBoxContainer/InformationPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "HintCounter"
+
+[node name="Spacer" type="Control" parent="UI/PlayScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Board" type="GridContainer" parent="UI/PlayScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="CellNode" parent="UI/PlayScreen/VBoxContainer/Board" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="SolutionBoard" type="PanelContainer" parent="UI/PlayScreen/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = ExtResource("10_qf6n1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayScreen/VBoxContainer/SolutionBoard"]
+layout_mode = 2
+
+[node name="SolutionText" type="Label" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Solution"
+horizontal_alignment = 1
+
+[node name="SolutionBoardContainer" type="GridContainer" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer"]
+unique_name_in_owner = true
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="TextureRect" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect3" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect4" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect5" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect6" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect7" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect8" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="TextureRect9" type="TextureRect" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer/SolutionBoardContainer"]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+texture = ExtResource("5_u5opy")
+
+[node name="PaletteContainer" type="PanelContainer" parent="UI/PlayScreen/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = ExtResource("10_qf6n1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PlayScreen/VBoxContainer/PaletteContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CellNode" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="CellNode2" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="CellNode3" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="CellNode4" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="CellNode5" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="BottomBar" parent="UI" instance=ExtResource("3_dakft")]
+offset_top = -128.0

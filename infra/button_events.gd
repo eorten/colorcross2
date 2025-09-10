@@ -1,0 +1,7 @@
+extends Node
+
+signal on_main_menu_button_pressed
+signal on_play_menu_button_pressed
+signal on_hint_button_pressed
+signal on_play_button_pressed(board_size:int)
+signal on_laser_button_pressed

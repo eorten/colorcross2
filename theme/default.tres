@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b0no6bs3sf7sg"]
+
+[ext_resource type="FontFile" uid="uid://dtdu1knkv5g4b" path="res://theme/fonts/Inter/Inter-VariableFont_opsz,wght.ttf" id="1_y77lc"]
+
+[resource]
+default_font = ExtResource("1_y77lc")

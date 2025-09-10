@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2t0e11sakd7j"]
+
+[ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="1_1f7ab"]
+
+[node name="CellNode" type="TextureRect"]
+custom_minimum_size = Vector2(192, 192)
+texture = ExtResource("1_1f7ab")
