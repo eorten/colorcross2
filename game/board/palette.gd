@@ -18,7 +18,7 @@ func _init(size:int) -> void:
 	#return _colors.pick_random()
 func get_size():
 	return _size
-func get_color(idx:int) -> IntColor:
+func get_intcolor(idx:int) -> IntColor:
 	return _colors.get(idx)
-#func scramble():
-	
+func get_intcolors() -> Array[IntColor]:
+	return _colors

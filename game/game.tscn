@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cq28pudaet80k"]
+[gd_scene load_steps=18 format=3 uid="uid://cq28pudaet80k"]
 
 [ext_resource type="Script" uid="uid://cu64ibfhlshv" path="res://game/game.gd" id="1_dakft"]
 [ext_resource type="Theme" uid="uid://b0no6bs3sf7sg" path="res://theme/default.tres" id="1_l1rk1"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://c2dgrefg4dkjo" path="res://game/ui/play_screen/play_screen.gd" id="7_l8g03"]
 [ext_resource type="PackedScene" uid="uid://b2t0e11sakd7j" path="res://game/ui/play_screen/cell_node.tscn" id="8_j8tme"]
 [ext_resource type="PackedScene" uid="uid://bj4u62uage76d" path="res://game/ui/play_screen/laser_node.tscn" id="9_3vho3"]
+[ext_resource type="PackedScene" uid="uid://bruouvs3mc446" path="res://game/ui/play_screen/palette_node.tscn" id="9_vsp63"]
 [ext_resource type="StyleBox" uid="uid://q8fny5hx0uhl" path="res://textures/styleboxes/rounded_panel.tres" id="10_qf6n1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1rk1"]
@@ -248,6 +249,7 @@ mouse_filter = 2
 theme = ExtResource("1_l1rk1")
 script = ExtResource("7_l8g03")
 cell_prefab = ExtResource("8_j8tme")
+palette_entry_prefab = ExtResource("9_vsp63")
 laser_prefab = ExtResource("9_3vho3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayScreen"]
@@ -378,30 +380,31 @@ custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
 texture = ExtResource("5_u5opy")
 
-[node name="PaletteContainer" type="PanelContainer" parent="UI/PlayScreen/VBoxContainer"]
+[node name="Palette" type="PanelContainer" parent="UI/PlayScreen/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("10_qf6n1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/PlayScreen/VBoxContainer/PaletteContainer"]
+[node name="PaletteContainer" type="HBoxContainer" parent="UI/PlayScreen/VBoxContainer/Palette"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="CellNode" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+[node name="CellNode" parent="UI/PlayScreen/VBoxContainer/Palette/PaletteContainer" instance=ExtResource("8_j8tme")]
 layout_mode = 2
 
-[node name="CellNode2" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+[node name="CellNode2" parent="UI/PlayScreen/VBoxContainer/Palette/PaletteContainer" instance=ExtResource("8_j8tme")]
 layout_mode = 2
 
-[node name="CellNode3" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+[node name="CellNode3" parent="UI/PlayScreen/VBoxContainer/Palette/PaletteContainer" instance=ExtResource("8_j8tme")]
 layout_mode = 2
 
-[node name="CellNode4" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+[node name="CellNode4" parent="UI/PlayScreen/VBoxContainer/Palette/PaletteContainer" instance=ExtResource("8_j8tme")]
 layout_mode = 2
 
-[node name="CellNode5" parent="UI/PlayScreen/VBoxContainer/PaletteContainer/HBoxContainer" instance=ExtResource("8_j8tme")]
+[node name="CellNode5" parent="UI/PlayScreen/VBoxContainer/Palette/PaletteContainer" instance=ExtResource("8_j8tme")]
 layout_mode = 2
 
 [node name="BottomBar" parent="UI" instance=ExtResource("3_dakft")]

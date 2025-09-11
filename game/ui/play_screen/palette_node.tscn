@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bruouvs3mc446"]
+
+[ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="1_y753n"]
+
+[node name="PaletteNode" type="TextureButton"]
+custom_minimum_size = Vector2(192, 192)
+offset_right = 192.0
+offset_bottom = 192.0
+texture_normal = ExtResource("1_y753n")
+stretch_mode = 4

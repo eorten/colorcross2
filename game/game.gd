@@ -29,25 +29,39 @@ func _ready() -> void:
 		#if(ui.current_ui_state.get_active_screen() != UIState.Screens.PLAY_SCREEN): #MOVE TO ASSERT_PLAYING FUNC
 			#print("UI in wrong state")
 			#return
-		
 		var old_state := ui.current_playscreen_state as PlayScreenState
 		ui.set_playscreen_state(
 			PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.SOLUTION, _board, _solution_board)
 		)
 	)
-	ButtonEvents.on_laser_button_pressed.connect(func():
+	ButtonEvents.on_laser_button_pressed.connect(func(orientation:PlayScreenState.LaserOrientation, laser_idx:int):
 		var old_state := ui.current_playscreen_state as PlayScreenState
+		#print("Setstate laseridx ", laser_idx);
 		ui.set_playscreen_state(
-			PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.COLOR_SELECTION, _board, _solution_board)
+			PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.COLOR_SELECTION, _board, _solution_board, laser_idx, orientation)
 		)
 	)
-	#GameplayEvents.on_board_changed.connect(func(new_board):
-		#_board = new_board
+	
+	GameplayEvents.on_laser_change_color.connect(func(color_idx):
+		var old_state := ui.current_playscreen_state as PlayScreenState
+		match old_state.active_laser_orientation:
+			PlayScreenState.LaserOrientation.ROW:
+				_board.set_row_laser_color_index(old_state.active_laser_idx, color_idx)
+			PlayScreenState.LaserOrientation.COL:
+				_board.set_col_laser_color_index(old_state.active_laser_idx, color_idx)
+		ui.set_playscreen_state(
+			PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.PLAYING, _board, _solution_board)
+		)
+	)
+	
+	#GameplayEvents.on_col_laser_change_color.connect(func(color_idx):
 		#var old_state := ui.current_playscreen_state as PlayScreenState
+		#_board.set_col_laser_color_index(old_state.active_laser_idx, color_idx)
 		#ui.set_playscreen_state(
-			#PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.SOLUTION, _board, _solution_board)
+			#PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.PLAYING, _board, _solution_board)
 		#)
 	#)
+
 	#endregion
 	
 	#Set state
@@ -67,12 +81,12 @@ func _unhandled_input(event):
 	if !event is InputEventScreenTouch: return;
 	if(ui.current_ui_state.get_active_screen() != UIState.Screens.PLAY_SCREEN): return;
 	if(ui.current_playscreen_state.state == PlayScreenState.State.SOLUTION):
-	
 		var old_state := ui.current_playscreen_state as PlayScreenState
 		ui.set_playscreen_state(
 			PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.PLAYING, _board, _solution_board)
 		)
 	elif ui.current_playscreen_state.state == PlayScreenState.State.COLOR_SELECTION:
+		
 		var old_state := ui.current_playscreen_state as PlayScreenState
 		ui.set_playscreen_state(
 			PlayScreenState.new(old_state.move_counter, old_state.hint_counter, PlayScreenState.State.PLAYING, _board, _solution_board)

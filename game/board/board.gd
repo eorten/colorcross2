@@ -24,12 +24,23 @@ func scramble_lasers():
 
 	_update_cells()
 
+func set_row_laser_color_index(laser_idx:int, new_color_index:int):
+	_row_lasers[laser_idx].set_color_idx(new_color_index)
+	_update_cells()
+
+func set_col_laser_color_index(laser_idx:int, new_color_index:int):
+	_col_lasers[laser_idx].set_color_idx(new_color_index)
+	_update_cells()
+	
+
 func _update_cells():
 	for pos in _board.keys():
 		var row_laser = _row_lasers[pos.y] as Laser
 		var col_laser = _col_lasers[pos.x] as Laser
 		_board[pos].update_color(row_laser.get_intcolor(), col_laser.get_intcolor())
 
+func get_palette() -> Palette:
+	return _palette
 func get_board_size() -> int:
 	return _board_size
 func get_board() -> Dictionary[Vector2i, Cell]:

@@ -1,11 +1,13 @@
 class_name PlayScreen extends Node
 @export var cell_prefab:PackedScene
+@export var palette_entry_prefab:PackedScene
 @export var laser_prefab:PackedScene
 
 @onready var board: GridContainer = %Board
 @onready var solution_board: PanelContainer = %SolutionBoard
 @onready var solution_board_container: GridContainer = %SolutionBoardContainer
-@onready var palette_container: PanelContainer = %PaletteContainer
+@onready var palette: PanelContainer = %Palette
+@onready var palette_container: HBoxContainer = %PaletteContainer
 
 @onready var board_size_label: Label = %BoardSizeLabel
 @onready var move_counter_label: Label = %MoveCounterLabel
@@ -23,9 +25,12 @@ func set_state(state:PlayScreenState):
 		child.queue_free()
 	for child in solution_board_container.get_children():
 		child.queue_free()
+	for child in palette_container.get_children():
+		child.queue_free()
+		
 	board.visible = false
 	solution_board.visible = false
-	palette_container.modulate = Color.TRANSPARENT
+	palette.modulate = Color.TRANSPARENT
 	
 	#Create new 
 	board.columns = board_size + 1 #+1 for laser
@@ -46,11 +51,15 @@ func set_state(state:PlayScreenState):
 		
 		PlayScreenState.State.COLOR_SELECTION:
 			board.visible = true
-			palette_container.modulate = Color.WHITE
+			palette.modulate = Color.WHITE
 			_create_play_board(state)
-
-func row_laser_clicked(idx):
-	GameplayEvents.on_board_changed.emit()
+			for i in len(state.board.get_palette().get_intcolors()):
+				var new_palette_entry = palette_entry_prefab.instantiate()
+				new_palette_entry.modulate = state.board.get_palette().get_intcolor(i).get_color()
+				new_palette_entry.pressed.connect(func(): 
+					GameplayEvents.on_laser_change_color.emit(i)
+				)
+				palette_container.add_child(new_palette_entry)
 
 func _create_play_board(state:PlayScreenState):
 	var new_row_lasers = state.board.get_row_lasers()
@@ -69,16 +78,20 @@ func _create_play_board(state:PlayScreenState):
 		var laser_idx = y
 		var new_laser = laser_prefab.instantiate()
 		new_laser.set_rot(-90)
-		new_laser.pressed.connect(ButtonEvents.on_laser_button_pressed.emit)
+		new_laser.pressed.connect(func(): print("row idx ", str(y), " pressed");ButtonEvents.on_laser_button_pressed.emit(PlayScreenState.LaserOrientation.ROW, laser_idx)) #row, laser_idx
 		board.add_child(new_laser)
 		new_laser.set_color(new_row_lasers[laser_idx].get_color())
 	
 	#Add col lasers
 	for x in state.board.get_board_size():
+		var laser_idx = x
 		var new_laser = laser_prefab.instantiate()
-		new_laser.pressed.connect(ButtonEvents.on_laser_button_pressed.emit)
+		new_laser.pressed.connect(func(): print("col idx ", str(x), " pressed"); ButtonEvents.on_laser_button_pressed.emit(PlayScreenState.LaserOrientation.COL, laser_idx))
 		board.add_child(new_laser)
-		new_laser.set_color(new_col_lasers[x].get_color())
+		new_laser.set_color(new_col_lasers[laser_idx].get_color())
+
+
+	#GameplayEvents.on_col_laser_change_color.connect(func(color_idx):
 
 func _create_solution_board(state:PlayScreenState):
 	var board_size = state.solution_board.get_board_size()
