@@ -31,3 +31,6 @@ static func get_random_intcolor() -> IntColor:
 	iclr.g = randi_range(0,255)
 	iclr.b = randi_range(0,255)
 	return iclr
+
+static func equals(c1:IntColor, c2:IntColor):
+	return c1.r == c2.r && c1.g == c2.g && c1.b == c2.b

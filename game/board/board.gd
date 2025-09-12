@@ -49,3 +49,14 @@ func get_row_lasers() -> Array[Laser]:
 	return _row_lasers
 func get_col_lasers() -> Array[Laser]:
 	return _col_lasers
+
+static func equals(b1:Board, b2:Board):
+	if b1.get_board_size() != b2.get_board_size(): return false;
+	for x in b1.get_board_size():
+		for y in b1.get_board_size():
+			var iter_pos = Vector2i(x,y)
+			var c1_color:IntColor = b1.get_board()[iter_pos].get_intcolor()
+			var c2_color:IntColor = b2.get_board()[iter_pos].get_intcolor()
+			if ! IntColor.equals(c1_color, c2_color): return false;
+	return true
+			

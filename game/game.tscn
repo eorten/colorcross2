@@ -141,6 +141,7 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
 text = "Credits"
 
 [node name="ExitButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -209,8 +210,19 @@ theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = ExtResource("2_vasa2")
 text = "3x3"
 
-[node name="5x5Button2" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+[node name="4x4Button2" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+unique_name_in_owner = true
 self_modulate = Color(0.756863, 0.176471, 0.698039, 1)
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("2_vasa2")
+text = "4x4"
+
+[node name="5x5Button3" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+unique_name_in_owner = true
+self_modulate = Color(0.552941, 0.756863, 0.176471, 1)
 custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
@@ -218,24 +230,15 @@ theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = ExtResource("2_vasa2")
 text = "5x5"
 
-[node name="7x7Button3" type="Button" parent="UI/PlayMenuScreen/Buttons"]
-self_modulate = Color(0.552941, 0.756863, 0.176471, 1)
-custom_minimum_size = Vector2(192, 192)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
-theme_override_font_sizes/font_size = 64
-theme_override_styles/normal = ExtResource("2_vasa2")
-text = "7x7
-"
-
-[node name="9x9Button4" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+[node name="6x6Button4" type="Button" parent="UI/PlayMenuScreen/Buttons"]
+unique_name_in_owner = true
 self_modulate = Color(0.176471, 0.670588, 0.756863, 1)
 custom_minimum_size = Vector2(192, 192)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
 theme_override_font_sizes/font_size = 64
 theme_override_styles/normal = ExtResource("2_vasa2")
-text = "9x9
+text = "6x6
 "
 
 [node name="PlayScreen" type="Control" parent="UI"]
@@ -275,6 +278,12 @@ theme_override_constants/margin_right = 128
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayScreen/VBoxContainer/InformationPanel"]
 layout_mode = 2
 
+[node name="SolvedLabel" type="Label" parent="UI/PlayScreen/VBoxContainer/InformationPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Fantastic!"
+
 [node name="BoardSizeLabel" type="Label" parent="UI/PlayScreen/VBoxContainer/InformationPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -299,9 +308,11 @@ size_flags_vertical = 3
 
 [node name="Board" type="GridContainer" parent="UI/PlayScreen/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 800)
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 4
@@ -309,11 +320,17 @@ columns = 4
 [node name="CellNode" parent="UI/PlayScreen/VBoxContainer/Board" instance=ExtResource("8_j8tme")]
 layout_mode = 2
 
+[node name="CellNode2" parent="UI/PlayScreen/VBoxContainer/Board" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
+[node name="CellNode3" parent="UI/PlayScreen/VBoxContainer/Board" instance=ExtResource("8_j8tme")]
+layout_mode = 2
+
 [node name="SolutionBoard" type="PanelContainer" parent="UI/PlayScreen/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("10_qf6n1")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PlayScreen/VBoxContainer/SolutionBoard"]
@@ -327,6 +344,7 @@ horizontal_alignment = 1
 
 [node name="SolutionBoardContainer" type="GridContainer" parent="UI/PlayScreen/VBoxContainer/SolutionBoard/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 600)
 layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
@@ -389,7 +407,10 @@ theme_override_styles/panel = ExtResource("10_qf6n1")
 
 [node name="PaletteContainer" type="HBoxContainer" parent="UI/PlayScreen/VBoxContainer/Palette"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 alignment = 1
 
 [node name="CellNode" parent="UI/PlayScreen/VBoxContainer/Palette/PaletteContainer" instance=ExtResource("8_j8tme")]

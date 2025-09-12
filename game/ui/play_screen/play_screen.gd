@@ -8,6 +8,7 @@ class_name PlayScreen extends Node
 @onready var solution_board_container: GridContainer = %SolutionBoardContainer
 @onready var palette: PanelContainer = %Palette
 @onready var palette_container: HBoxContainer = %PaletteContainer
+@onready var solved_label: Label = %SolvedLabel
 
 @onready var board_size_label: Label = %BoardSizeLabel
 @onready var move_counter_label: Label = %MoveCounterLabel
@@ -25,14 +26,24 @@ func set_state(state:PlayScreenState):
 		child.queue_free()
 	for child in solution_board_container.get_children():
 		child.queue_free()
-	for child in palette_container.get_children():
-		child.queue_free()
-		
+	
+	solved_label.visible = false
 	board.visible = false
 	solution_board.visible = false
 	palette.modulate = Color.TRANSPARENT
 	
-	#Create new 
+	#Create new palette - refactor, dont need to create new each statechange
+	for child in palette_container.get_children():
+		child.queue_free()
+	for i in len(state.board.get_palette().get_intcolors()):
+		var new_palette_entry = palette_entry_prefab.instantiate()
+		new_palette_entry.modulate = state.board.get_palette().get_intcolor(i).get_color()
+		new_palette_entry.pressed.connect(func(): 
+			GameplayEvents.on_laser_change_color.emit(i)
+		)
+		palette_container.add_child(new_palette_entry)
+	
+	#Create new board
 	board.columns = board_size + 1 #+1 for laser
 	solution_board_container.columns = board_size
 	
@@ -46,20 +57,16 @@ func set_state(state:PlayScreenState):
 			_create_solution_board(state)
 			
 		PlayScreenState.State.SOLVED:
+			solved_label.visible = true
 			solution_board.visible = true
 			_create_solution_board(state)
 		
 		PlayScreenState.State.COLOR_SELECTION:
+
 			board.visible = true
 			palette.modulate = Color.WHITE
 			_create_play_board(state)
-			for i in len(state.board.get_palette().get_intcolors()):
-				var new_palette_entry = palette_entry_prefab.instantiate()
-				new_palette_entry.modulate = state.board.get_palette().get_intcolor(i).get_color()
-				new_palette_entry.pressed.connect(func(): 
-					GameplayEvents.on_laser_change_color.emit(i)
-				)
-				palette_container.add_child(new_palette_entry)
+
 
 func _create_play_board(state:PlayScreenState):
 	var new_row_lasers = state.board.get_row_lasers()

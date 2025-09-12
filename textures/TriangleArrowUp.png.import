@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvimrhbid2hxs"
-path="res://.godot/imported/TriangleArrow.png-bffd5afe25461ee81e896c1cd46c27d3.ctex"
+uid="uid://b46lunpgc5y26"
+path="res://.godot/imported/TriangleArrowUp.png-b0045b02fe3a01c432d7e6602ece2c1a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/TriangleArrow.png"
-dest_files=["res://.godot/imported/TriangleArrow.png-bffd5afe25461ee81e896c1cd46c27d3.ctex"]
+source_file="res://textures/TriangleArrowUp.png"
+dest_files=["res://.godot/imported/TriangleArrowUp.png-b0045b02fe3a01c432d7e6602ece2c1a.ctex"]
 
 [params]
 

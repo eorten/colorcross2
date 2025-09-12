@@ -1,10 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://bruouvs3mc446"]
 
-[ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="1_y753n"]
+[ext_resource type="StyleBox" uid="uid://bwxmg57ncjg0q" path="res://textures/styleboxes/rounded_panel_white.tres" id="1_y753n"]
 
-[node name="PaletteNode" type="TextureButton"]
-custom_minimum_size = Vector2(192, 192)
-offset_right = 192.0
-offset_bottom = 192.0
-texture_normal = ExtResource("1_y753n")
-stretch_mode = 4
+[node name="PaletteNode" type="Button"]
+custom_minimum_size = Vector2(0, 196)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/normal = ExtResource("1_y753n")

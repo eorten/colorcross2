@@ -3,5 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="1_1f7ab"]
 
 [node name="CellNode" type="TextureRect"]
-custom_minimum_size = Vector2(192, 192)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = ExtResource("1_1f7ab")
+expand_mode = 4
+stretch_mode = 5

@@ -1,5 +1,6 @@
 extends Node
 
+signal on_quit_button_pressed
 signal on_main_menu_button_pressed
 signal on_play_menu_button_pressed
 signal on_hint_button_pressed
