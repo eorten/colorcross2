@@ -13,7 +13,11 @@ func _ready() -> void:
 			UIState.new(true, false, UIState.Screens.PLAY_MENU)
 		)
 	)
-	
+	ButtonEvents.on_tutorial_button_pressed.connect(func():
+		ui.set_state(
+			UIState.new(true, false, UIState.Screens.TUTORIAL_SCREEN)
+		)
+	)
 	ButtonEvents.on_main_menu_button_pressed.connect(func():
 		ui.set_state(UIState.new())
 	)
@@ -49,7 +53,9 @@ func _ready() -> void:
 	)
 	
 	GameplayEvents.on_laser_change_color.connect(func(color_idx):
+			
 		var old_state := ui.current_playscreen_state as PlayScreenState
+		if !old_state.state == PlayScreenState.State.COLOR_SELECTION: return; #Wrong state
 		match old_state.active_laser_orientation:
 			PlayScreenState.LaserOrientation.ROW:
 				_board.set_row_laser_color_index(old_state.active_laser_idx, color_idx)

@@ -6,7 +6,7 @@ var _see_board_button_active: bool
 #endregion
 
 #region active screen
-enum Screens { MAIN_MENU, PLAY_MENU, PLAY_SCREEN }
+enum Screens { MAIN_MENU, PLAY_MENU, PLAY_SCREEN, TUTORIAL_SCREEN}
 var _active_screen: Screens
 #endregion
 

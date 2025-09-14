@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cq28pudaet80k"]
+[gd_scene load_steps=21 format=3 uid="uid://cq28pudaet80k"]
 
 [ext_resource type="Script" uid="uid://cu64ibfhlshv" path="res://game/game.gd" id="1_dakft"]
 [ext_resource type="Theme" uid="uid://b0no6bs3sf7sg" path="res://theme/default.tres" id="1_l1rk1"]
@@ -8,7 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://c5pgj0kijjh2t" path="res://textures/RoundedSquare.png" id="5_u5opy"]
 [ext_resource type="Script" uid="uid://bp8m5ppg4uoov" path="res://game/ui/main_menu_screen/main_menu_screen.gd" id="5_y36n6"]
 [ext_resource type="Script" uid="uid://dmpy2ex3jq60p" path="res://game/ui/play_menu_screen/play_menu_screen.gd" id="6_y36n6"]
+[ext_resource type="Script" uid="uid://2ne3nty3d56h" path="res://game/ui/tutorial_screen/tutorial_screen.gd" id="7_ee6o4"]
+[ext_resource type="Texture2D" uid="uid://mk88l37bqjiq" path="res://textures/EyeIcon.png" id="7_hb504"]
 [ext_resource type="Script" uid="uid://c2dgrefg4dkjo" path="res://game/ui/play_screen/play_screen.gd" id="7_l8g03"]
+[ext_resource type="Texture2D" uid="uid://b188lnrclu4n" path="res://textures/CrossIconWhite.png" id="8_ee6o4"]
 [ext_resource type="PackedScene" uid="uid://b2t0e11sakd7j" path="res://game/ui/play_screen/cell_node.tscn" id="8_j8tme"]
 [ext_resource type="PackedScene" uid="uid://bj4u62uage76d" path="res://game/ui/play_screen/laser_node.tscn" id="9_3vho3"]
 [ext_resource type="PackedScene" uid="uid://bruouvs3mc446" path="res://game/ui/play_screen/palette_node.tscn" id="9_vsp63"]
@@ -25,13 +28,14 @@
 [node name="Game" type="Node"]
 script = ExtResource("1_dakft")
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("bottom_bar", "main_menu_screen", "play_menu_screen", "play_screen")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("bottom_bar", "main_menu_screen", "play_menu_screen", "play_screen", "tutorial_screen")]
 unique_name_in_owner = true
 script = ExtResource("2_u5opy")
 bottom_bar = NodePath("BottomBar")
 main_menu_screen = NodePath("MainMenuScren")
 play_menu_screen = NodePath("PlayMenuScreen")
 play_screen = NodePath("PlayScreen")
+tutorial_screen = NodePath("TutorialScreen")
 
 [node name="BG" type="ColorRect" parent="UI"]
 anchors_preset = 15
@@ -89,7 +93,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
@@ -97,10 +101,11 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_mq7fr")
 text = "Play"
 
 [node name="TutorialButton" type="Button" parent="UI/MainMenuScren/Buttons"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
@@ -111,7 +116,7 @@ text = "Tutorial"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
@@ -122,7 +127,7 @@ text = "Scoreboard"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
@@ -133,7 +138,7 @@ text = "Settings"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
@@ -145,7 +150,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_font_sizes/font_size = 64
+theme_override_font_sizes/font_size = 80
 theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_l1rk1")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_vasa2")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_h7iqs")
@@ -172,14 +177,11 @@ anchor_right = 1.0
 offset_bottom = 689.0
 grow_horizontal = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/PlayMenuScreen/Title"]
+[node name="RichTextLabel" type="Label" parent="UI/PlayMenuScreen/Title"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
-theme_override_constants/line_separation = -32
-theme_override_font_sizes/normal_font_size = 96
-bbcode_enabled = true
+theme_override_font_sizes/font_size = 80
 text = "Select board size"
-fit_content = true
 horizontal_alignment = 1
 
 [node name="Buttons" type="GridContainer" parent="UI/PlayMenuScreen"]
@@ -241,7 +243,98 @@ theme_override_styles/normal = ExtResource("2_vasa2")
 text = "6x6
 "
 
+[node name="TutorialScreen" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_l1rk1")
+script = ExtResource("7_ee6o4")
+
+[node name="Title" type="CenterContainer" parent="UI/TutorialScreen"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 689.0
+grow_horizontal = 2
+
+[node name="RichTextLabel" type="Label" parent="UI/TutorialScreen/Title"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Tutorial"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TutorialScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 583.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/TutorialScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "How to play:
+Match colors of an empty board
+to the colors of the solution
+board by changing the color
+of lasers"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="UI/TutorialScreen/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/TutorialScreen/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/TutorialScreen/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("7_hb504")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/TutorialScreen/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = " - Show the board to match"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/TutorialScreen/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/TutorialScreen/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("8_ee6o4")
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="UI/TutorialScreen/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = " - Exit to main menu"
+
+[node name="CreditScreen" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("1_l1rk1")
+
 [node name="PlayScreen" type="Control" parent="UI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -308,6 +401,7 @@ size_flags_vertical = 3
 
 [node name="Board" type="GridContainer" parent="UI/PlayScreen/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(800, 800)
 layout_direction = 2
 layout_mode = 2
